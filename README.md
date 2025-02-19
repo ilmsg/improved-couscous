@@ -1,6 +1,33 @@
 # improved-couscous
 golang with testing
 
+
+    $ go test ./...
+    $ go test ./... -v
+
+**test with httptest**
+
+    func TestGet(t *testing.T){
+        r := httptest.NewRequest(http.MethodGet, "/", nil)
+        w := httptest.NewRecorder()
+
+        ServerHTTP(w, r)
+        
+        if w.Body.String() == "" {
+            t.Errorf("")
+        }
+
+        if w.Code == http.StatusOK {
+            t.Errorf("")
+        }
+    }
+
+    func TestGet(t *testing.T){
+        r := httptest.NewRequest(http.MethodGet, "/", nil)
+        w := httptest.NewRecorder()
+    }
+
+
 **run test**
 
     $ go test ./...
