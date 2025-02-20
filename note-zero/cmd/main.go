@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -21,14 +22,17 @@ func main() {
 	hNote := handler.NewHandlerNote(srvNote)
 
 	r := mux.NewRouter()
-	v1 := r.PathPrefix("/v1").Subrouter()
-	s := v1.PathPrefix("/notes").Subrouter()
+	api := r.PathPrefix("/api").Subrouter()
+	s := api.PathPrefix("/v1").Subrouter()
 
-	s.HandleFunc("/", hNote.CreateNote).Methods("POST")
-	s.HandleFunc("/", hNote.ListNote).Methods("GET")
-	s.HandleFunc("/{id}", hNote.GetNote).Methods("GET")
-	s.HandleFunc("/{id}", hNote.UpdateNote).Methods("PATCH")
-	s.HandleFunc("/{id}", hNote.DeleteNote).Methods("DELETE")
+	s.HandleFunc("/notes", hNote.CreateNote).Methods("POST")
+	s.HandleFunc("/notes", hNote.ListNote).Methods("GET")
+	s.HandleFunc("/notes/{id}", hNote.GetNote).Methods("GET")
+	s.HandleFunc("/notes/{id}", hNote.UpdateNote).Methods("PATCH")
+	s.HandleFunc("/notes/{id}", hNote.DeleteNote).Methods("DELETE")
 
-	http.ListenAndServe(":3060", r)
+	log.Printf("server listen at *:3060")
+	if err := http.ListenAndServe(":3060", r); err != nil {
+		log.Fatal(err)
+	}
 }

@@ -7,6 +7,10 @@ import (
 	"github.com/ilmsg/improved-couscous/note-zero/model"
 )
 
+type MessageResponse struct {
+	Message string `json:"message"`
+}
+
 type NoteHandler interface {
 	CreateNote(w http.ResponseWriter, r *http.Request)
 	ListNote(w http.ResponseWriter, r *http.Request)
@@ -16,7 +20,7 @@ type NoteHandler interface {
 }
 
 type NoteService interface {
-	CreateNote(note model.Note) error
+	CreateNote(note *model.Note) error
 	ListNote() ([]model.Note, error)
 	GetNote(id uuid.UUID) (model.Note, error)
 	UpdateNote(note model.Note) error
@@ -24,7 +28,7 @@ type NoteService interface {
 }
 
 type NoteRepo interface {
-	CreateNote(note model.Note) error
+	CreateNote(note *model.Note) error
 	ListNote() ([]model.Note, error)
 	GetNote(id uuid.UUID) (model.Note, error)
 	UpdateNote(note model.Note) error

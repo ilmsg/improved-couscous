@@ -11,28 +11,28 @@ type noteService struct {
 }
 
 // CreateNote implements domain.NoteService.
-func (n *noteService) CreateNote(note model.Note) error {
-	panic("unimplemented")
+func (n *noteService) CreateNote(note *model.Note) error {
+	return n.repo.CreateNote(note)
 }
 
 // DeleteNote implements domain.NoteService.
 func (n *noteService) DeleteNote(id uuid.UUID) error {
-	panic("unimplemented")
+	return n.repo.DeleteNote(id)
 }
 
 // GetNote implements domain.NoteService.
 func (n *noteService) GetNote(id uuid.UUID) (model.Note, error) {
-	panic("unimplemented")
+	return n.repo.GetNote(id)
 }
 
 // ListNote implements domain.NoteService.
 func (n *noteService) ListNote() ([]model.Note, error) {
-	panic("unimplemented")
+	return n.repo.ListNote()
 }
 
 // UpdateNote implements domain.NoteService.
 func (n *noteService) UpdateNote(note model.Note) error {
-	panic("unimplemented")
+	return n.repo.UpdateNote(note)
 }
 
 func NewServiceNote(repo domain.NoteRepo) domain.NoteService {
